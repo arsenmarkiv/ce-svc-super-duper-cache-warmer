@@ -1,0 +1,17 @@
+---
+name: svc-dnahelloworld
+k8s_template: ce_api_svc_python
+artifact_name: svc-dnahelloworld
+git_repo_name: ce-svc-dnahelloworld
+healthcheck_url: /actuator/health
+resources:
+  requests:
+    memory: 1024Mi
+    cpu: 200m
+  limits:
+    memory: 2048Mi
+    cpu: '2'
+vault:
+  version: 2
+e2e:
+  e2eVaultVersion: v2

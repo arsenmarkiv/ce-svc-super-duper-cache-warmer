@@ -1,0 +1,13 @@
+// Seldom should this file be touched
+
+buildscript {
+    repositories {
+        maven { url "${ARTIFACTORY_BASE_URL}/maven-virtual/" }
+        mavenLocal()
+    }
+    dependencies {
+        classpath "com.eagleinvsys.gradle:eagle-script-java:${eagleGradlePlugin}"
+    }
+}
+
+apply from: project.buildscript.classLoader.getResource("gradle/root.gradle").toURI()

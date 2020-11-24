@@ -1,0 +1,14 @@
+// Seldom should this file be touched
+
+rootProject.name = rootProjectName
+
+buildCache {
+    local {
+        enabled = false
+    }
+    remote(HttpBuildCache) {
+        enabled = true
+        url = "${ARTIFACTORY_BASE_URL}/gradle-buildcache-local/"
+        push = true
+    }
+}
