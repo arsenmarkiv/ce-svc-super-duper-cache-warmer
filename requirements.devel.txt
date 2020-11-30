@@ -1,3 +1,5 @@
+--index-url https://artifactory.engops.az.eagleinvsys.com/artifactory/api/pypi/pypi-virtual/simple
+
 dnasetuptools==1.1.2
 pytest==5.4.1
 pytest-env==0.6.2
