@@ -1,9 +1,9 @@
 import logging
 
 from dnapythonutils import logs
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
+from src.cachewarmer.api import cache_warming
 
-# This configures logging to use the correct format for ALA
 logs.init_logging()
 logger = logging.getLogger(__name__)
 
@@ -26,10 +26,26 @@ def hello_world():
     return 'Hello, World!'
 
 
-def main():
+async def main():
     """
     App must contain a function that returns the WSGI app
     object. This function is referenced in `gradle.properties`
     as 'mainFunction`. This function is required for gunicorn.
     """
     return app
+
+
+@app.route('/cache/warm', methods=['GET'])
+def warm_cache():
+    period_type = request.args.get('periodType')
+    threads_count = request.args.get('threadsCount')
+
+    res = cache_warming.execute_requests(period_type, threads_count)
+
+    print(res)
+
+    return 'ok'
+
+
+if __name__ == "__main__":
+    app.run(threaded=True, debug=True)
