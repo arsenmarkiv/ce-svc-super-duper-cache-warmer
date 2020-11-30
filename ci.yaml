@@ -1,8 +1,8 @@
 ---
-name: svc-dnahelloworld
+name: svc-cachewarmer
 k8s_template: ce_api_svc_python
-artifact_name: svc-dnahelloworld
-git_repo_name: ce-svc-dnahelloworld
+artifact_name: svc-cachewarmer
+git_repo_name: ce-svc-cachewarmer
 healthcheck_url: /actuator/health
 resources:
   requests:
