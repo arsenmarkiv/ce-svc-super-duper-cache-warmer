@@ -21,10 +21,12 @@ def get_url_for_service(service: str) -> str:
     )
 
 
-def get_analytics_api_url() -> str:
+def get_analytics_api_url(api_version, endpoint) -> str:
     base_url = os.environ.get('ANALYTICS_API_BASE_URL', get_url_for_service('svc-distanalytics'))
 
-    return base_url
+    full_url = f"{base_url}/v{api_version}/{endpoint}"
+
+    return full_url
 
 
 # def run_with_executor(url, method="GET", data=None, threads=5, verify_ssl=False, api_version='33', access_token=None):
@@ -55,8 +57,8 @@ async def requests_with_asyncio_and_aiohttp(url, method="GET", data=None, verify
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + access_token
     }
-    dist_analytics_url = get_analytics_api_url()
-    full_url = f"{dist_analytics_url}/v{api_version}/{url}"
+
+    dist_analytics_url = get_analytics_api_url(url, api_version)
 
     connector = aiohttp.TCPConnector(limit=5, limit_per_host=5)
     timeout = ClientTimeout(total=40 * 60)
@@ -64,12 +66,12 @@ async def requests_with_asyncio_and_aiohttp(url, method="GET", data=None, verify
     client = aiohttp.ClientSession(connector=connector, timeout=timeout)
 
     async with client as session:
-        async with session.request(method, full_url, data=json.dumps(data), headers=headers) as response:
+        async with session.request(method, dist_analytics_url, data=json.dumps(data), headers=headers) as response:
 
             if response.status == 204:
                 return {'data': []}
             if response.status != 200:
-                message = f'Non-200 status code ({response.status}) while making api request {full_url}: {response.reason}'
+                message = f'Non-200 status code ({response.status}) while making api request {dist_analytics_url}: {response.reason}'
                 raise exceptions.APIResultException(message, response.status)
 
             try:
@@ -119,14 +121,12 @@ def data_generator(path):
 
 
 # TODO: add GitHub files parsing functionality
-async def parse_resources(period):
-    folder_name = period
-
+async def parse_resources(folder_name):
     project_path = os.path.abspath(os.path.split(sys.argv[0])[0])
     path = os.path.join(project_path, 'resources', folder_name)
 
     # TODO: check if file exist
-    requests_arr = [_json for _json in data_generator(path)]
+    requests_arr = [json_file for json_file in data_generator(path)]
 
     return requests_arr
 
