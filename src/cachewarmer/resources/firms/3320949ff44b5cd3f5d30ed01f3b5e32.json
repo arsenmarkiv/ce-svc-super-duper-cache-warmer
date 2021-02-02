@@ -1,0 +1,41 @@
+{
+  "turnaroundId": "",
+  "dateRange": {
+    "periodType": "ytd"
+  },
+  "filterBy": {
+    "geography": {
+      "country": [
+        "US"
+      ]
+    }
+  },
+  "groupBy": {
+    "geography": [
+      "country",
+      "cbsaId"
+    ]
+  },
+  "attributes": [
+    {
+      "return": [
+        "rank*"
+      ]
+    },
+    {
+      "against": [
+        "subscriptions",
+        "redemptions",
+        "netFlows"
+      ],
+      "by": {
+        "geography": [
+          "country"
+        ]
+      },
+      "function": [
+        "rank"
+      ]
+    }
+  ]
+}

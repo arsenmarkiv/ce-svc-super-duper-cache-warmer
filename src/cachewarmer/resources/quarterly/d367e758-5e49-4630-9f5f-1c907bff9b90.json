@@ -1,0 +1,27 @@
+{
+    "turnaroundId" : "d367e758-5e49-4630-9f5f-1c907bff9b90",
+    "groupBy" : {
+      "geography" : [ "country" ],
+      "product" : [ "assetClass" ]
+    },
+    "filterBy" : {
+      "geography" : {
+        "country" : [ "US" ]
+      }
+    },
+    "dateRange" : {
+      "periodType" : "quarterly"
+    },
+    "attributes" : [ {
+      "return" : [ "percent*", "change*", "netFlowRatio", "flowIndicator" ]
+    }, {
+      "function" : [ "percent" ],
+      "against" : [ "subscriptions", "redemptions" ],
+      "by" : {
+        "geography" : [ "country" ]
+      }
+    }, {
+      "function" : [ "change" ],
+      "against" : [ "percentSubscriptionsCountry", "percentRedemptionsCountry", "netFlowRatio" ]
+    } ]
+  }

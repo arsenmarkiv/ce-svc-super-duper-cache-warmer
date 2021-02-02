@@ -1,0 +1,59 @@
+{
+  "turnaroundId": "",
+  "dateRange": {
+    "periodType": "monthly"
+  },
+  "filterBy": {
+    "geography": {
+      "country": [
+        "US"
+      ]
+    }
+  },
+  "groupBy": {
+    "geography": [
+      "cbsaId"
+    ],
+    "product": [
+      "assetClass",
+      "fundRiskRatingMs3yr"
+    ]
+  },
+  "attributes": [
+    {
+      "return": [
+        "percent*",
+        "change*",
+        "netFlowRatio",
+        "flowIndicator"
+      ]
+    },
+    {
+      "against": [
+        "subscriptions",
+        "redemptions"
+      ],
+      "by": {
+        "geography": [
+          "cbsaId"
+        ],
+        "product": [
+          "fundRiskRatingMs3yr"
+        ]
+      },
+      "function": [
+        "percent"
+      ]
+    },
+    {
+      "against": [
+        "percentSubscriptionsCbsaIdFundRiskRatingMs3yr",
+        "percentRedemptionsCbsaIdFundRiskRatingMs3yr",
+        "netFlowRatio"
+      ],
+      "function": [
+        "change"
+      ]
+    }
+  ]
+}

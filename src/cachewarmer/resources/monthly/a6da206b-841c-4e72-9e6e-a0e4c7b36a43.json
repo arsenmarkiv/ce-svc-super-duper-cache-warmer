@@ -1,0 +1,29 @@
+{
+  "turnaroundId" : "a6da206b-841c-4e72-9e6e-a0e4c7b36a43",
+  "groupBy" : {
+    "geography" : [ "cbsaId" ],
+    "product" : [ "assetType", "assetClass" ]
+  },
+  "filterBy" : {
+    "geography" : {
+      "country" : [ "US" ]
+    }
+  },
+  "dateRange" : {
+    "end" : "20200531",
+    "periodType" : "monthly"
+  },
+  "attributes" : [ {
+    "return" : [ "percent*", "netFlowRatio", "changeNetFlowRatio" ]
+  }, {
+    "function" : [ "percent" ],
+    "against" : [ "subscriptions", "redemptions" ],
+    "by" : {
+      "geography" : [ "cbsaId" ],
+      "product" : [ "assetType" ]
+    }
+  }, {
+    "function" : [ "change" ],
+    "against" : [ "netFlowRatio" ]
+  } ]
+}

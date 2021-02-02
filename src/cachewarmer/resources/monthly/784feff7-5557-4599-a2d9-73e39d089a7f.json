@@ -1,0 +1,27 @@
+{
+  "turnaroundId" : "784feff7-5557-4599-a2d9-73e39d089a7f",
+  "groupBy" : {
+    "geography" : [ "division", "cbsaId" ]
+  },
+  "filterBy" : {
+    "geography" : {
+      "country" : [ "US" ]
+    }
+  },
+  "dateRange" : {
+    "end" : "20190930",
+    "periodType" : "monthly"
+  },
+  "attributes" : [ {
+    "return" : [ "percent*", "rank*", "change*" ]
+  }, {
+    "function" : [ "rank", "percent" ],
+    "against" : [ "subscriptions", "redemptions" ],
+    "by" : {
+      "geography" : [ "division" ]
+    }
+  }, {
+    "function" : [ "change" ],
+    "against" : [ "rankSubscriptionsDivision", "rankRedemptionsDivision", "percentSubscriptionsDivision", "percentRedemptionsDivision" ]
+  } ]
+}

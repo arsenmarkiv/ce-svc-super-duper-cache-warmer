@@ -1,0 +1,74 @@
+{
+  "turnaroundId": "",
+  "dateRange": {
+    "periodType": "quarterly"
+  },
+  "filterBy": {
+    "manufacturer": {
+      "sourceManufacturerId": [
+        "60",
+        "33",
+        "597",
+        "719",
+        "198"
+      ]
+    },
+    "geography": {
+      "country": [
+        "US"
+      ]
+    }
+  },
+  "groupBy": {
+    "manufacturer": [
+      "sourceManufacturerId"
+    ],
+    "geography": [
+      "country"
+    ],
+    "product": [
+      "assetClass",
+      "fundPerformanceRatingMsoverall"
+    ]
+  },
+  "attributes": [
+    {
+      "return": [
+        "percent*",
+        "change*",
+        "netFlowRatio",
+        "flowIndicator"
+      ]
+    },
+    {
+      "against": [
+        "subscriptions",
+        "redemptions"
+      ],
+      "by": {
+        "manufacturer": [
+          "sourceManufacturerId"
+        ],
+        "geography": [
+          "country"
+        ],
+        "product": [
+          "fundPerformanceRatingMsoverall"
+        ]
+      },
+      "function": [
+        "percent"
+      ]
+    },
+    {
+      "against": [
+        "percentSubscriptionsSourceManufacturerIdCountryFundPerformanceRatingMsoverall",
+        "percentRedemptionsSourceManufacturerIdCountryFundPerformanceRatingMsoverall",
+        "netFlowRatio"
+      ],
+      "function": [
+        "change"
+      ]
+    }
+  ]
+}

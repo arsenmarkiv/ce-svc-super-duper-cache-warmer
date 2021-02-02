@@ -1,0 +1,27 @@
+{
+    "turnaroundId" : "da29bb87-2243-43f5-a59f-5078a1cbdf18",
+    "groupBy" : {
+      "geography" : [ "country" ],
+      "product" : [ "fundRiskRatingMs3yr" ]
+    },
+    "filterBy" : {
+      "geography" : {
+        "country" : [ "US" ]
+      }
+    },
+    "dateRange" : {
+      "periodType" : "ytd"
+    },
+    "attributes" : [ {
+      "return" : [ "percent*", "change*", "netFlowRatio", "flowIndicator" ]
+    }, {
+      "function" : [ "percent" ],
+      "against" : [ "subscriptions", "redemptions" ],
+      "by" : {
+        "geography" : [ "country" ]
+      }
+    }, {
+      "function" : [ "change" ],
+      "against" : [ "percentSubscriptionsCountry", "percentRedemptionsCountry", "netFlowRatio" ]
+    } ]
+  }

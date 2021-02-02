@@ -1,0 +1,74 @@
+{
+  "turnaroundId": "",
+  "dateRange": {
+    "periodType": "monthly"
+  },
+  "filterBy": {
+    "manufacturer": {
+      "sourceManufacturerId": [
+        "60",
+        "33",
+        "597",
+        "719",
+        "198"
+      ]
+    },
+    "geography": {
+      "country": [
+        "US"
+      ]
+    }
+  },
+  "groupBy": {
+    "manufacturer": [
+      "sourceManufacturerId"
+    ],
+    "geography": [
+      "division"
+    ],
+    "product": [
+      "assetType",
+      "expenseRatio"
+    ]
+  },
+  "attributes": [
+    {
+      "return": [
+        "percent*",
+        "change*",
+        "netFlowRatio",
+        "flowIndicator"
+      ]
+    },
+    {
+      "against": [
+        "subscriptions",
+        "redemptions"
+      ],
+      "by": {
+        "manufacturer": [
+          "sourceManufacturerId"
+        ],
+        "geography": [
+          "division"
+        ],
+        "product": [
+          "assetType"
+        ]
+      },
+      "function": [
+        "percent"
+      ]
+    },
+    {
+      "against": [
+        "percentSubscriptionsSourceManufacturerIdDivisionAssetType",
+        "percentRedemptionsSourceManufacturerIdDivisionAssetType",
+        "netFlowRatio"
+      ],
+      "function": [
+        "change"
+      ]
+    }
+  ]
+}

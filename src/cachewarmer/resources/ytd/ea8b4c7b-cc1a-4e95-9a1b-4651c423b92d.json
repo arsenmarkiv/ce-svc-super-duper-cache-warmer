@@ -1,0 +1,28 @@
+{
+    "turnaroundId" : "ea8b4c7b-cc1a-4e95-9a1b-4651c423b92d",
+    "groupBy" : {
+      "geography" : [ "cbsaId" ],
+      "product" : [ "assetClass", "fundRatingMsoverall" ]
+    },
+    "filterBy" : {
+      "geography" : {
+        "country" : [ "US" ]
+      }
+    },
+    "dateRange" : {
+      "periodType" : "ytd"
+    },
+    "attributes" : [ {
+      "return" : [ "percent*", "change*", "netFlowRatio", "flowIndicator" ]
+    }, {
+      "function" : [ "percent" ],
+      "against" : [ "subscriptions", "redemptions" ],
+      "by" : {
+        "geography" : [ "cbsaId" ],
+        "product" : [ "fundRatingMsoverall" ]
+      }
+    }, {
+      "function" : [ "change" ],
+      "against" : [ "percentSubscriptionsCbsaIdFundRatingMsoverall", "percentRedemptionsCbsaIdFundRatingMsoverall", "netFlowRatio" ]
+    } ]
+  }

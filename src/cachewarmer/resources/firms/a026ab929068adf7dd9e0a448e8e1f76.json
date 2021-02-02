@@ -1,0 +1,43 @@
+{
+  "turnaroundId": "",
+  "dateRange": {
+    "periodType": "quarterly"
+  },
+  "filterBy": {
+    "geography": {
+      "country": [
+        "US"
+      ]
+    }
+  },
+  "groupBy": {
+    "geography": [
+      "division"
+    ],
+    "product": [
+      "assetType"
+    ]
+  },
+  "attributes": [
+    {
+      "return": [
+        "percent*",
+        "netFlowRatio"
+      ]
+    },
+    {
+      "against": [
+        "subscriptions",
+        "redemptions"
+      ],
+      "by": {
+        "geography": [
+          "division"
+        ]
+      },
+      "function": [
+        "percent"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "turnaroundId": "",
+  "dateRange": {
+    "periodType": "12tm"
+  },
+  "filterBy": {
+    "geography": {
+      "country": [
+        "US"
+      ]
+    }
+  },
+  "groupBy": {
+    "geography": [
+      "division"
+    ],
+    "product": [
+      "assetType",
+      "assetClass",
+      "expenseRatio"
+    ]
+  },
+  "attributes": [
+    {
+      "return": [
+        "percent*",
+        "change*",
+        "netFlowRatio",
+        "flowIndicator"
+      ]
+    },
+    {
+      "against": [
+        "subscriptions",
+        "redemptions"
+      ],
+      "by": {
+        "geography": [
+          "division"
+        ],
+        "product": [
+          "assetType",
+          "expenseRatio"
+        ]
+      },
+      "function": [
+        "percent"
+      ]
+    },
+    {
+      "against": [
+        "percentSubscriptionsDivisionAssetTypeExpenseRatio",
+        "percentRedemptionsDivisionAssetTypeExpenseRatio",
+        "netFlowRatio"
+      ],
+      "function": [
+        "change"
+      ]
+    }
+  ]
+}

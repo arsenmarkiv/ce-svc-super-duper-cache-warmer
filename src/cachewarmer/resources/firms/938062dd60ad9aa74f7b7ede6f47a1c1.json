@@ -1,0 +1,41 @@
+{
+  "turnaroundId": "",
+  "dateRange": {
+    "periodType": "quarterly"
+  },
+  "filterBy": {
+    "geography": {
+      "country": [
+        "US"
+      ]
+    }
+  },
+  "groupBy": {
+    "geography": [
+      "country",
+      "division"
+    ]
+  },
+  "attributes": [
+    {
+      "return": [
+        "rank*"
+      ]
+    },
+    {
+      "against": [
+        "subscriptions",
+        "redemptions",
+        "netFlows"
+      ],
+      "by": {
+        "geography": [
+          "country"
+        ]
+      },
+      "function": [
+        "rank"
+      ]
+    }
+  ]
+}

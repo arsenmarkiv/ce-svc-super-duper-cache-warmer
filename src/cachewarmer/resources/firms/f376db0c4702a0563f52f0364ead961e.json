@@ -1,0 +1,62 @@
+{
+  "turnaroundId": "",
+  "dateRange": {
+    "periodType": "12tm"
+  },
+  "filterBy": {
+    "manufacturer": {
+      "sourceManufacturerId": [
+        "60",
+        "33",
+        "597",
+        "719",
+        "198"
+      ]
+    },
+    "geography": {
+      "country": [
+        "US"
+      ]
+    }
+  },
+  "groupBy": {
+    "manufacturer": [
+      "sourceManufacturerId"
+    ],
+    "geography": [
+      "cbsaId"
+    ],
+    "product": [
+      "fundInvestmentStyle"
+    ]
+  },
+  "attributes": [
+    {
+      "return": [
+        "percent*",
+        "rank*",
+        "flowIndicator",
+        "netFlowRatio"
+      ]
+    },
+    {
+      "against": [
+        "subscriptions",
+        "redemptions",
+        "netFlows"
+      ],
+      "by": {
+        "manufacturer": [
+          "sourceManufacturerId"
+        ],
+        "geography": [
+          "cbsaId"
+        ]
+      },
+      "function": [
+        "percent",
+        "rank"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+    "turnaroundId" : "77ccb4fd-3de6-4d6a-a6d4-60337ca70c66",
+    "groupBy" : {
+      "geography" : [ "country" ],
+      "product" : [ "assetType", "fundInvestmentStyle" ]
+    },
+    "filterBy" : {
+      "geography" : {
+        "country" : [ "US" ]
+      }
+    },
+    "dateRange" : {
+      "periodType" : "quarterly"
+    },
+    "attributes" : [ {
+      "return" : [ "rank*", "percent*", "flowIndicator", "netFlowRatio" ]
+    }, {
+      "function" : [ "rank", "percent" ],
+      "against" : [ "subscriptions", "redemptions", "netFlows" ],
+      "by" : {
+        "geography" : [ "country" ],
+        "product" : [ "assetType" ]
+      }
+    } ]
+  }

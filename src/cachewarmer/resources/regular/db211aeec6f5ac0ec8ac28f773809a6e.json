@@ -1,0 +1,47 @@
+{
+  "turnaroundId": "",
+  "dateRange": {
+    "periodType": "monthly"
+  },
+  "filterBy": {
+    "geography": {
+      "country": [
+        "US"
+      ]
+    }
+  },
+  "groupBy": {
+    "geography": [
+      "division"
+    ],
+    "product": [
+      "fundInvestmentStyle"
+    ]
+  },
+  "attributes": [
+    {
+      "return": [
+        "percent*",
+        "rank*",
+        "flowIndicator",
+        "netFlowRatio"
+      ]
+    },
+    {
+      "against": [
+        "subscriptions",
+        "redemptions",
+        "netFlows"
+      ],
+      "by": {
+        "geography": [
+          "division"
+        ]
+      },
+      "function": [
+        "percent",
+        "rank"
+      ]
+    }
+  ]
+}

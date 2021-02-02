@@ -1,0 +1,70 @@
+{
+  "turnaroundId": "",
+  "dateRange": {
+    "end": "20190930",
+    "periodType": "quarterly"
+  },
+  "filterBy": {
+    "manufacturer": {
+      "sourceManufacturerId": [
+        "60",
+        "33",
+        "597",
+        "719",
+        "198"
+      ]
+    },
+    "geography": {
+      "country": [
+        "US"
+      ]
+    }
+  },
+  "groupBy": {
+    "manufacturer": [
+      "sourceManufacturerId"
+    ],
+    "geography": [
+      "country",
+      "cbsaId"
+    ]
+  },
+  "attributes": [
+    {
+      "return": [
+        "percent*",
+        "rank*",
+        "change*"
+      ]
+    },
+    {
+      "against": [
+        "subscriptions",
+        "redemptions"
+      ],
+      "by": {
+        "manufacturer": [
+          "sourceManufacturerId"
+        ],
+        "geography": [
+          "country"
+        ]
+      },
+      "function": [
+        "rank",
+        "percent"
+      ]
+    },
+    {
+      "against": [
+        "rankSubscriptionsSourceManufacturerIdCountry",
+        "rankRedemptionsSourceManufacturerIdCountry",
+        "percentSubscriptionsSourceManufacturerIdCountry",
+        "percentRedemptionsSourceManufacturerIdCountry"
+      ],
+      "function": [
+        "change"
+      ]
+    }
+  ]
+}
