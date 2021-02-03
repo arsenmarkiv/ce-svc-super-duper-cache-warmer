@@ -2,21 +2,23 @@ import asyncio
 import glob
 import logging
 import os
+import sys
+
 import aiohttp
 
 from aiohttp import ClientTimeout
-from dnapythonutils import logs
 from flask import json
 
-from src.cachemanager.common import dna_oauth
-from src.cachemanager.common.exceptions import NoSuchDirectoryException, TokenRetrieveException, ApiResultsException, \
-    NotValidPeriodType
-from src.cachemanager.common.period_type import PeriodType
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'common'))
 
-logs.init_logging()
+from common.dna_oauth import retrieve_token
+from common.exceptions import NoSuchDirectoryException, TokenRetrieveException, ApiResultsException, \
+    NotValidPeriodType
+from common.period_type import PeriodType
+
 formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
 
-errorHandler = logging.FileHandler("error.log")
+errorHandler = logging.FileHandler("logging.log")
 errorHandler.setFormatter(formatter)
 
 logger = logging.getLogger(__name__)
@@ -42,11 +44,15 @@ def get_analytics_api_url(api_version, endpoint) -> str:
     return full_url
 
 
-@dna_oauth.add_access_token_kwarg(tenant_id=os.getenv('AZURE_AD_TENANT_ID'),
-                                  resource=os.getenv('APP_REGISTRAR_CLIENT_ID'),
-                                  client_id=os.getenv('OAUTH_CLIENT_ID'),
-                                  client_secret=os.getenv('OAUTH_CLIENT_SECRET'))
-async def requests_with_asyncio_and_aiohttp(url, method="POST", data=None, api_version='33', access_token=None):
+async def requests_with_asyncio_and_aiohttp(url, method="POST", data=None, api_version='33'):
+
+    tenant_id = os.getenv('AZURE_AD_TENANT_ID')
+    resource = os.getenv('APP_REGISTRAR_CLIENT_ID')
+    client_id = os.getenv('OAUTH_CLIENT_ID')
+    client_secret = os.getenv('OAUTH_CLIENT_SECRET')
+
+    access_token = retrieve_token(tenant_id, resource, client_id, client_secret)
+
     if access_token is None:
         raise TokenRetrieveException()
 

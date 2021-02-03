@@ -2,7 +2,7 @@ import pytest
 import json
 from flask import Flask, request
 
-from src.cachewarmer.app import app, main
+from src.cachemanager import app, main
 
 
 @pytest.fixture

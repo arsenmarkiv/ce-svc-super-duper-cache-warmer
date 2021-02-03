@@ -1,13 +1,16 @@
 import logging
 
-from flask import Flask, jsonify, request
-from dnapythonutils import logs
-
 # This configures logging to use the correct format for ALA
-from .common.exceptions import MissingParameterException
-from .services import cache_service
+import os
+import sys
 
-logs.init_logging()
+from flask import Flask, jsonify, request
+
+sys.path.append(os.path.dirname(__file__))
+
+from common.exceptions import MissingParameterException
+from services import cache_service
+
 logger = logging.getLogger(__name__)
 
 app = Flask(__name__)

@@ -1,15 +1,16 @@
 import logging
-from dnapythonutils import logs
+import os
+import sys
+
+sys.path.append(os.path.dirname(__file__))
 
 from common.exceptions import CacheServiceException
-from src.cachemanager.main import app
-from src.cachemanager.common.environment import Variables
-from src.cachemanager.common.error_handler import AppException, app_error_handler, generic_error_handler, \
+from main import app
+from common.environment import Variables
+from common.error_handler import AppException, app_error_handler, generic_error_handler, \
     page_not_found_error_handler, cache_manager_error_handler
-from services import cache_service
 
 # This configures logging to use the correct format for ALA
-logs.init_logging()
 logger = logging.getLogger(__name__)
 
 env_variables = Variables('load')

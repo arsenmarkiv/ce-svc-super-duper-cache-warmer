@@ -7,7 +7,7 @@ class Variables:
         default_environment = 'production'
         default_host = 'localhost'
         default_secret_key = 'test_key'
-        default_port = 6012
+        default_port = 5000
         default_url_prefix = '/svc-appstm-da-cachemanager'
         default_auth_tenant = "test-tenent"
         default_tenant_id = os.environ.get('tenant_id', '')

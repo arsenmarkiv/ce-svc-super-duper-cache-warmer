@@ -1,8 +1,5 @@
 import logging
 
-from dnapythonutils import logs
-
-logs.init_logging()
 logger = logging.getLogger(__name__)
 
 

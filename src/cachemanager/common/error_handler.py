@@ -2,14 +2,12 @@ import logging
 import datetime
 
 from flask import jsonify, make_response, request
-from dnapythonutils import logs
 
 from . import constants
 from .constants import StatusCode, Error, ErrorMessage
 from .exceptions import CacheServiceException
 from .response_headers import add_response_headers
 
-logs.init_logging()  # Any loggers created after this will inherit the config
 logger = logging.getLogger(__name__)
 
 
