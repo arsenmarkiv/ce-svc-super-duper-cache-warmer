@@ -3,19 +3,19 @@ import sys
 
 from flask import current_app
 
-from src.cachemanager import app
-from src.cachemanager.common.error_handler import AppException, app_error_handler, generic_error_handler, page_not_found_error_handler
-from src.cachemanager.common.constants import StatusCode, Error, ErrorMessage
+from src.cachemanager.main import app
+from src.cachemanager.error_handler import AppException, app_error_handler, generic_error_handler, \
+    page_not_found_error_handler
+from src.cachemanager.constants import StatusCode, Error, ErrorMessage
 
-
-sys.path.append(os.path.join(os.path.dirname(__file__), '...', 'src', 'cachemanager'))
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'src', 'cachemanager'))
 
 
 def test_app_error_handler():
     with app.app_context():
         with current_app.test_request_context():
             actual = app_error_handler(AppException(StatusCode.BAD_REQUEST, Error.BAD_REQUEST,
-                                            ErrorMessage.BAD_REQUEST))
+                                                    ErrorMessage.BAD_REQUEST))
             actual_json = actual.get_json()
             assert actual_json["error"] == Error.BAD_REQUEST
             assert actual_json["message"] == ErrorMessage.BAD_REQUEST

@@ -1,9 +1,9 @@
 import os
 import sys
 
-from src.cachemanager.common import environment
+from src.cachemanager import environment
 
-sys.path.append(os.path.join(os.path.dirname(__file__), '...', 'src', 'cachemanager'))
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'src', 'cachemanager'))
 
 
 def test_set_vars(monkeypatch):

@@ -2,27 +2,17 @@ import asyncio
 import glob
 import logging
 import os
-import sys
-
 import aiohttp
 
 from aiohttp import ClientTimeout
 from flask import json
 
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'common'))
-
-from common.dna_oauth import retrieve_token
-from common.exceptions import NoSuchDirectoryException, TokenRetrieveException, ApiResultsException, \
+import oauth_client
+from exceptions import NoSuchDirectoryException, TokenRetrieveException, ApiResultsException, \
     NotValidPeriodType
-from common.period_type import PeriodType
-
-formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
-
-errorHandler = logging.FileHandler("logging.log")
-errorHandler.setFormatter(formatter)
+from request_type import RequestType
 
 logger = logging.getLogger(__name__)
-logger.addHandler(errorHandler)
 
 default_thread_count = os.getenv('DEFAULT_THREAD_COUNT', 5)
 
@@ -51,7 +41,7 @@ async def requests_with_asyncio_and_aiohttp(url, method="POST", data=None, api_v
     client_id = os.getenv('OAUTH_CLIENT_ID')
     client_secret = os.getenv('OAUTH_CLIENT_SECRET')
 
-    access_token = retrieve_token(tenant_id, resource, client_id, client_secret)
+    access_token = oauth_client.retrieve_token(tenant_id, resource, client_id, client_secret)
 
     if access_token is None:
         raise TokenRetrieveException()
@@ -70,18 +60,21 @@ async def requests_with_asyncio_and_aiohttp(url, method="POST", data=None, api_v
 
     async with client as session:
         async with session.request(method, dist_analytics_url, data=json.dumps(data), headers=headers) as response:
+
+            response_json = await response.json()
             if response.status == 200:
                 try:
-                    response_json = await response.json()
-                    cached_request = response_json['request']
+                    cached_request = response_json['request']['turnaroundId']
+
+                    logger.info(f'Successfully returned response for request:{cached_request}')
+
+                    return cached_request
                 except ValueError:
                     raise ApiResultsException(f'Failed to decode dist-analytics result: {response.text}')
 
-                logger.info(f'Successfully returned response for request:{cached_request}')
-
-                # return cached_request
             else:
-                message = f'Non-200 status code ({response.status}) while making api request {dist_analytics_url}: {response.json()}'
+                message = f'Non-200 status code ({response.status}) while making api request {dist_analytics_url}: ' \
+                          f'{response_json}'
                 logger.error(message)
                 raise ApiResultsException(message, response.status)
 
@@ -97,7 +90,7 @@ async def gather_with_concurrency(n, *tasks):
 
 
 async def call_summary_api(period: str, threads: int):
-    period_types = set(item.value for item in PeriodType)
+    period_types = set(item.value for item in RequestType)
 
     if period not in period_types:
         raise NotValidPeriodType(period, period_types)
@@ -129,10 +122,9 @@ def data_generator(path):
             yield json.loads(data)
 
 
-# TODO: add GitHub files parsing functionality
 async def parse_resources(folder_name):
-    project_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    path = os.path.join(project_path, 'resources', folder_name)
+
+    path = os.path.join(os.path.dirname(__file__), 'resources', folder_name)
 
     isdir = os.path.exists(path)
     if not isdir:
@@ -143,7 +135,7 @@ async def parse_resources(folder_name):
     return requests_arr
 
 
-def execute_requests(period_type, threads_count=10):
+def execute_requests(period_type, threads_count=2):
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
     try:

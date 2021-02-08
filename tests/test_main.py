@@ -2,11 +2,11 @@ import os
 import sys
 
 import pytest
+from flask import Flask
 
-from src.cachemanager import app
+from src.cachemanager.main import app
 
-sys.path.append(os.path.join(os.path.dirname(__file__), '...', 'src', 'cachemanager'))
-
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'src', 'cachemanager'))
 
 
 @pytest.fixture
@@ -25,9 +25,14 @@ def mock_execute_requests_function(period_type, threads_count):
     return ["12345", "67890"]
 
 
+def test_create_app():
+    returned_app = app
+    assert isinstance(returned_app, Flask)
+
+
 def test_cache_route(client, monkeypatch):
 
-    monkeypatch.setattr('src.cachemanager.services.cache_service.execute_requests', mock_execute_requests_function)
+    monkeypatch.setattr('src.cachemanager.main.cache_service.execute_requests', mock_execute_requests_function)
 
     response = client.get('/cache?periodType=monthly')
 

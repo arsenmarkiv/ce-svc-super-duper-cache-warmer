@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class PeriodType(Enum):
+class RequestType(Enum):
     MONTHLY = 'monthly'
     QUARTERLY = 'quarterly'
     TTM = 'trailing-months'

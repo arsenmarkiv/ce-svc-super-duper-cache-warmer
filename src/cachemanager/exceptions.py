@@ -49,14 +49,17 @@ class NoSuchDirectoryException(CacheServiceException):
 
 class TokenRetrieveException(CacheServiceException):
 
-    def __init__(self):
+    def __init__(self, message):
         self.status = 500
         self.error = 'TokenRetrieveException'
         self.message = 'There was token retrieve issue'
 
         logger.info(self.message)
 
-        super().__init__(self.error, self.message, self.status)
+        if message is None:
+            message = self.message
+
+        super().__init__(self.error, message, self.status)
 
 
 class MissingParameterException(CacheServiceException):

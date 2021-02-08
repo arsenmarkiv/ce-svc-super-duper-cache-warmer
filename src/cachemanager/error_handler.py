@@ -3,10 +3,9 @@ import datetime
 
 from flask import jsonify, make_response, request
 
-from . import constants
-from .constants import StatusCode, Error, ErrorMessage
-from .exceptions import CacheServiceException
-from .response_headers import add_response_headers
+import constants
+from constants import StatusCode, Error, ErrorMessage
+from exceptions import CacheServiceException
 
 logger = logging.getLogger(__name__)
 
@@ -47,7 +46,8 @@ def generic_error_handler(e):
         http status code
     """
     logger.error(f'Caught an generic exception: {e}')
-    response = response_builder(StatusCode.INTERNAL_SERVER_ERROR, Error.INTERNAL_SERVER_ERROR, ErrorMessage.INTERNAL_SERVER_ERROR)
+    response = response_builder(StatusCode.INTERNAL_SERVER_ERROR, Error.INTERNAL_SERVER_ERROR,
+                                ErrorMessage.INTERNAL_SERVER_ERROR)
     return response
 
 
@@ -77,6 +77,19 @@ def page_not_found_error_handler(e):
         http status code
     """
     return response_builder(StatusCode.NOT_FOUND, Error.NOT_FOUND, ErrorMessage.NOT_FOUND)
+
+
+def add_response_headers(response, origin=None):
+    """
+    Adds headers to response
+    """
+    origin = request.headers.get('Origin') if origin is None else origin
+    response.headers['Access-Control-Allow-Headers'] = 'content-type'
+    response.headers['Access-Control-Allow-Methods'] = (
+        'POST, GET, OPTIONS, DELETE'
+    )
+    response.headers['Access-Control-Allow-Origin'] = origin
+    response.headers['Access-Control-Allow-Credentials'] = 'true'
 
 
 def response_builder(status, error, errormessage):
